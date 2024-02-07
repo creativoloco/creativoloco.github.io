@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+        }
+
+        html {
+            font-size: 12px;
+        }
+
+        h1 {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        body {
+            margin: 0px;
+            overflow: hidden auto;
+            width: 100vw;
+            height: 100vh;
+            background: #e05d23;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        form {
+            align-items: center;
+        }
+
+        #calculator {
+            padding: 40px;
+            background-color: white;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 5px 5px 50px #0004;
+        }
+
+        label {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        input {
+            text-align: center;
+            background-color: white;
+            border: none;
+            border-radius: 5px;
+            width: 150px;
+            font-size: 2rem;
+            color: #444;
+            height: 4rem;
+            margin: 5px;
+            float: right;
+            box-shadow: 0px 0px 12px #0002;
+        }
+
+        #res {
+            color: #e05d23;
+            box-shadow: none;
+            font-size: 3rem;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <form id="calculator" action="">
+        <img src="https://www.smartwork.pl/images/logo.png" width="200px" alt="logo">
+        <h1>Neto per hour<br>calculator</h1>
+        <label for="gross">Gross per hour</label>
+        <input id="gross" name="gross" type="number" min="20" value="27.7" step="0.1" />
+        <label for="hours">Hours per month</label>
+        <input id="hours" name="hours" type="number" value="240" />
+        <label for="age">Your age</label>
+        <input id="age" name="age" type="number" min="18" max="100" value="26" />
+        <label for="res">Netto per hour</label>
+        <input id="res" name="total" type="number" disabled readonly />
+    </form>
+    
+<script type="application/javascript">
+    window.addEventListener("load", function (){
+        const calculator = document.getElementById("calculator")
+        
+        calculator.onkeyup = processForm
+        calculator.onchange = processForm
+        
+        processForm()
+
+        function processForm() {
+            const data = Object.fromEntries(new FormData(calculator))
+            const res = document.getElementById("res")
+            try {
+                for (value in data) {
+                    const numericVal = +data[value]
+                    if (isNaN(numericVal)) throw new Error(`${value} is not valid`)
+                    data[value] = numericVal
+                }
+                res.value = getNeto(data)
+            } catch (e) {
+                console.error(e)
+            }
+        }
+
+        function getNeto({ gross, hours, age }) {
+            const totalGross = gross * hours
+            const insurances = totalGross * 0.192466
+            let taxes = age >= 26 ? (0.0850944 * totalGross) - 300 : 0
+            taxes = taxes > 0 ? taxes : 0
+            const res = (totalGross - insurances - taxes) / hours
+            const rounded = Math.floor((res + Number.EPSILON) * 1000) / 1000
+            return res.toFixed(2)
+        }
+    })
+</script>
+</body>
+
+</html>
