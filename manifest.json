@@ -1,4 +1,5 @@
 {
+  "id": "/calculatorHome",
   "display_override": [
     "window-controls-overlay"
   ],
