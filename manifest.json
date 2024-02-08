@@ -1,0 +1,30 @@
+{
+  "background_color": "#e05d23",
+  "description": "salary neto calculator for smartwork's workers. It will help workers to underestand about the payment details.",
+  "dir": "ltr",
+  "display": "fullscreen",
+  "name": "SmartWork - Salary calculator for Leszno workers",
+  "orientation": "portrait",
+  "scope": "/",
+  "short_name": "SmartWork - Salary calculator for Leszno workers",
+  "start_url": "/",
+  "theme_color": "#e05d23",
+  "icons": [
+    {
+      "src": "/img/seo-og-01.png"
+    }
+  ],
+  "id": "smartworksalarycalculator",
+  "lang": "en",
+  "display_override": [
+    "fullscreen",
+    "window-controls-overlay"
+  ],
+  "categories": [
+    "business",
+    "finance",
+    "government",
+    "personalization",
+    "utilities"
+  ]
+}
